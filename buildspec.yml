@@ -2,7 +2,7 @@ version: 0.1
 
 environment_variables:
   plaintext:
-    IMAGE_REPO_NAME: "buksbaum/hugo"
+    IMAGE_REPO_NAME: "hugo"
 
 phases:
   pre_build:
@@ -14,9 +14,16 @@ phases:
       - echo Build started on `buksbaum/hugo`
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
+      # tag for AWS
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      # tag for DockerHub
+      #- docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_NAME:$IMAGE_TAG
+
   post_build:
     commands:
       - echo Build completed on `buksbaum/hugo`
       - echo Pushing the Docker image...
+      # push to AWS registry
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      # push to Docker Hub
+      #-- docker push $IMAGE_REPO_NAME:$IMAGE_TAG
