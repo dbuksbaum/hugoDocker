@@ -6,7 +6,7 @@ ENV HUGO_BINARY hugo_${HUGO_VERSION}_linux-64bit
 ENV HUGO_EXE hugo_${HUGO_VERSION}_linux_amd64
 
 # Install pygments (for syntax highlighting)
-RUN apk update && apk add py-pygments && apk add git && apk add bash && apk add git && rm -rf /var/cache/apk/*
+RUN apk update && apk add py-pygments && apk add git && apk add bash && apk add git && apk add glib && rm -rf /var/cache/apk/*
 
 # make hugo directory structure
 RUN mkdir /hugo
