@@ -1,5 +1,9 @@
 version: 0.1
 
+environment_variables:
+  plaintext:
+    IMAGE_REPO_NAME: "buksbaum/hugo"
+
 phases:
   pre_build:
     commands:
